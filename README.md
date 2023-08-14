@@ -1,4 +1,4 @@
-# Image Dataset Genration
+# Image Dataset Generation
 Generate images via a Generative Adversarial Network (GAN)
 
 # What is GAN?
