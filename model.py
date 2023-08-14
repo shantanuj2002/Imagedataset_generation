@@ -46,7 +46,7 @@ def generator_model(inputdim = 100, xdim = 4, ydim = 4):
 def discriminator_model():
     model = Sequential()
     model.add(Convolution2D(128, 5, 5, subsample=(2, 2), input_shape=(3, 64, 64), border_mode = 'same'))
-    model.add(LeakyReLU(0.2))
+    model.add(LeakyReLU(0.2)
     model.add(Dropout(0.2))
     model.add(Convolution2D(256, 5, 5, subsample=(2, 2), border_mode = 'same'))
     model.add(LeakyReLU(0.2))
@@ -55,7 +55,7 @@ def discriminator_model():
     model.add(LeakyReLU(0.2))
     model.add(Dropout(0.2))
     model.add(Convolution2D(1024, 5, 5, subsample=(2, 2), border_mode = 'same'))
-    model.add(LeakyReLU(0.2))
+    model.add(LeakyReLU(0.2)
     model.add(Dropout(0.2))
     model.add(Flatten())
     model.add(Dense(output_dim=1))
