@@ -164,15 +164,35 @@ def generate(img_num):
     '''
         Generate new images based on trained model.
     '''
+    # Create an instance of the generator model
     generator = model.generator_model()
-    adam=Adam(lr=0.00002, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
+
+     # Define the optimizer for the generator
+     """
+        Adam (short for Adaptive Moment Estimation) is an optimization algorithm used for training deep learning models,
+        including neural networks.Adam maintains two moving averages for each parameter: 
+        the first moment (mean) and the second moment (uncentered variance)
+     """
+     adam=Adam(lr=0.00002, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
+    # Compile the generator model with a binary cross-entropy loss and the specified optimizer
+    """
+    Binary cross-entropy is a loss function commonly used in binary classification tasks,
+    where the goal is to classify input data into one of two classes (e.g., 0 or 1, true or false, real or fake).
+    The Adam optimizer is responsible for adjusting the weights of the generator during
+    training to minimize the binary cross-entropy loss.
+    """
     generator.compile(loss='binary_crossentropy', optimizer=adam)
+
+    # Load pre-trained weights for the generator from a file
     generator.load_weights('generator_weights')
 
+    # Generate random noise vectors to input into the generator
     noise = np.array( [ noise_image() for n in range(img_num) ] )
 
     print ('Generating images..')
+    # Use the generator to produce fake images based on the random noise
     generated_images = [np.rollaxis(img, 0, 3) for img in generator.predict(noise)]
+    # Save the generated images to files
     for index, img in enumerate(generated_images):
         cv2.imwrite("{}.jpg".format(index), np.uint8(255 * 0.5 * (img + 1.0)))
 
